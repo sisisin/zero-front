@@ -2,7 +2,8 @@ PREDEF:
   - preface.re
 
 CHAPS:
-  - article.re
+  - what-is-frontend.re
+  - setup-environment.re
 
 APPENDIX:
 

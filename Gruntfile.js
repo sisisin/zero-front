@@ -10,6 +10,7 @@ const reviewPrefix = process.env["REVIEW_PREFIX"] || "bundle exec ";
 const reviewPostfix = process.env["REVIEW_POSTFIX"] || "";             // REVIEW_POSTFIX="-peg" npm run pdf とかするとPEGでビルドできるよ
 const reviewPreproc = `${reviewPrefix}review-preproc${reviewPostfix}`;
 const reviewCompile = `${reviewPrefix}review-compile${reviewPostfix}`;
+const reviewWebMaker = `${reviewPrefix}review-webmaker${reviewPostfix}`;
 const reviewPdfMaker = `${reviewPrefix}review-pdfmaker${reviewPostfix}`;
 const reviewEpubMaker = `${reviewPrefix}review-epubmaker${reviewPostfix}`;
 
@@ -77,6 +78,14 @@ module.exports = grunt => {
 				},
 				command: `${reviewCompile} --target=idgxml`
 			},
+			compile2web: {
+				options: {
+					execOptions: {
+						cwd: articles,
+					},
+				},
+				command: `${reviewWebMaker} config.yml`,
+			},
 			compile2pdf: {
 				options: {
 					execOptions: {
@@ -125,7 +134,12 @@ module.exports = grunt => {
 		"原稿をコンパイルしてInDesign用XMLファイルにする",
 		generateTask("idgxml"));
 
-	grunt.registerTask(
+    grunt.registerTask(
+      "web",
+      "原稿をコンパイルしてwebページにする",
+      generateTask("web", ["sass"]).concat(['copy:publish']));
+
+      grunt.registerTask(
 		"pdf",
 		"原稿をコンパイルしてpdfファイルにする",
 		generateTask("pdf"));

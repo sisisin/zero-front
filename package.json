@@ -28,7 +28,9 @@
     "test": "npm run html && npm run check",
     "check": "npm run check:prh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lite-server": "^2.3.0"
+  },
   "devDependencies": {
     "grunt": "1.0.1",
     "grunt-cli": "1.2.0",
